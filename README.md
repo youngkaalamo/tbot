@@ -5,17 +5,16 @@ structure:
 recommendation_bot/
 │
 ├── bot/
-│   ├── handlers.py        # Telegram-логика
+│   ├── handlers.py        # Telegram-logic
 │   ├── keyboards.py
 │   └── bot.py
 │
 ├── recommender/
-│   ├── model.py           # TF-IDF + similarity
-│   ├── preprocess.py     # очистка данных
-│   └── data_loader.py
+│   ├── model.py           # TF-IDF, similarity     
+│   └── cleaning.py     # clean data
 │
 ├── data/
-│   └── movies.csv
+│   └── movies_clean.csv
 │
 ├── config.py
 ├── requirements.txt
