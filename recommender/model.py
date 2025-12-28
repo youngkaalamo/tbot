@@ -15,7 +15,7 @@ class Recommender:
 ]
         # Создаём колонку description для TF-IDF
         self.df["description"] = self.df["description"].fillna("")  # на случай пропусков
-        self.vectorizer = TfidfVectorizer(stop_words="russian_stop_words")
+        self.vectorizer = TfidfVectorizer(stop_words=russian_stop_words)
         self.tfidf_matrix = self.vectorizer.fit_transform(self.df["description"])
 
     def recommend(self, title: str, top_n: int = 5):
