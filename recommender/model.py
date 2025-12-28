@@ -20,28 +20,16 @@ class Recommender:
 
     def recommend(self, title: str, top_n: int = 5):
         title = title.strip().lower()
-
         # Создаём колонку с чистым названием без года и в нижнем регистре
-        self.df["title_clean"] = (
-            self.df["title"]
-            .str.replace(r"\(\d{4}\)", "", regex=True)
-            .str.lower()
-            .str.strip()
-        )
-
+        self.df["title_clean"] = (self.df["title"].str.lower().str.strip())
         # Поиск по подстроке
         matches = self.df[self.df["title_clean"].str.contains(title)]
-
         if matches.empty:
             return "Фильм не найден в базе. Попробуйте другое название."
-
-        # Берём первый найденный фильм
         idx = matches.index[0]
-
         # Косинусное сходство для рекомендаций
         cosine_sim = cosine_similarity(self.tfidf_matrix[idx], self.tfidf_matrix).flatten()
         similar_indices = cosine_sim.argsort()[::-1][1:top_n+1]
-
         recommended = self.df.iloc[similar_indices][["title", "description"]].to_dict(orient="records")
         return recommended
 
